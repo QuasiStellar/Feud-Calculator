@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" href="assets/logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/logo.png" type="image/png" />
+
+    <meta charset="UTF-8" />
+    <meta name="description" content="Welcome to the unofficial Feud Calculator!" />
+    <meta name="author" content="QuasiStellar" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta property="og:url" content="https://quasistellar.github.io/FeudCalculator/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Feud Calculator" />
+    <meta property="og:description" content="Welcome to the unofficial Feud Calculator!" />
+    <meta property="og:image" content=https://quasistellar.github.io/FeudCalculator/assets/logo.png" />
+
+    <title>Feud Calculator</title>
+
+    <style>
+
+    </style>
+
+</head>
+
+<body>
+<script>
+    let PAGE = 'main';
+    let CANVAS_SIZE = 1056;
+    let HP_SIZE = 24;
+    let HP_DISTANCE = 40;
+    let MAP_SIZE = 4;
+
+    let scale = 100;
+    let history;
+    let pos;
+    let map = new Array(MAP_SIZE);
+
+    let assets = {black: {}, white: {}};
+    let head = new Image();
+    head.src = "assets/head.png";
+    let black_bg = new Image();
+    black_bg.src = "assets/black_bg.png";
+    let white_bg = new Image();
+    white_bg.src = "assets/white_bg.png";
+    let black_hp = new Image();
+    black_hp.src = "assets/black_hp.png";
+    let white_hp = new Image();
+    white_hp.src = "assets/white_hp.png";
+    assets['black']['king'] = new Image();
+    assets['black']['king'].src = "assets/black_king.png";
+    assets['white']['king'] = new Image();
+    assets['white']['king'].src = "assets/white_king.png";
+    assets['black']['wizard'] = new Image();
+    assets['black']['wizard'].src = "assets/black_wizard.png";
+    assets['white']['wizard'] = new Image();
+    assets['white']['wizard'].src = "assets/white_wizard.png";
+    assets['black']['medic'] = new Image();
+    assets['black']['medic'].src = "assets/black_medic.png";
+    assets['white']['medic'] = new Image();
+    assets['white']['medic'].src = "assets/white_medic.png";
+    assets['black']['shield'] = new Image();
+    assets['black']['shield'].src = "assets/black_shield.png";
+    assets['white']['shield'] = new Image();
+    assets['white']['shield'].src = "assets/white_shield.png";
+    assets['black']['archer'] = new Image();
+    assets['black']['archer'].src = "assets/black_archer.png";
+    assets['white']['archer'] = new Image();
+    assets['white']['archer'].src = "assets/white_archer.png";
+    assets['black']['knight'] = new Image();
+    assets['black']['knight'].src = "assets/black_knight.png";
+    assets['white']['knight'] = new Image();
+    assets['white']['knight'].src = "assets/white_knight.png";
+
+
+    function switch_page(new_page) {
+        document.getElementById("main").style.display='none';
+        document.getElementById("faq").style.display='none';
+        PAGE = new_page;
+        document.getElementById(new_page).style.display='block';
+    }
+
+    function generate() {
+        let color = document.getElementById("color").value;
+        let opponents_color = color === 'black' ? 'white' : 'black';
+        let your_king = document.getElementById("your_king").value;
+        let opponents_king = document.getElementById("opponents_king").value;
+        let history = document.getElementById("history").value;
+        scale = parseInt(document.getElementById("scale").value);
+
+        pos = history.indexOf(' ');
+
+        for (let i = 0; i < MAP_SIZE; i++) {
+            map[i] = new Array(MAP_SIZE);
+            for (let j = 0; j < MAP_SIZE; j++)
+                map[i][j] = {type: 'empty'}
+        }
+
+        switch (your_king) {
+            case 'a1':
+                map[0][0] = {type: 'king', color: color, hp: 4};
+                map[0][1] = {type: 'shield', color: color, hp: 4};
+                map[1][0] = {type: 'archer', color: color, hp: 3};
+                map[1][1] = {type: 'knight', color: color, hp: 3};
+                map[2][0] = {type: 'medic', color: color, hp: 3};
+                map[2][1] = {type: 'knight', color: color, hp: 3};
+                map[3][0] = {type: 'archer', color: color, hp: 3};
+                map[3][1] = {type: 'wizard', color: color, hp: 3};
+                break;
+            case 'b1':
+                map[0][0] = {type: 'archer', color: color, hp: 4};
+                map[0][1] = {type: 'knight', color: color, hp: 4};
+                map[1][0] = {type: 'king', color: color, hp: 3};
+                map[1][1] = {type: 'shield', color: color, hp: 3};
+                map[2][0] = {type: 'medic', color: color, hp: 3};
+                map[2][1] = {type: 'wizard', color: color, hp: 3};
+                map[3][0] = {type: 'knight', color: color, hp: 3};
+                map[3][1] = {type: 'archer', color: color, hp: 3};
+                break;
+            case 'c1':
+                map[0][0] = {type: 'knight', color: color, hp: 4};
+                map[0][1] = {type: 'archer', color: color, hp: 4};
+                map[1][0] = {type: 'medic', color: color, hp: 3};
+                map[1][1] = {type: 'wizard', color: color, hp: 3};
+                map[2][0] = {type: 'king', color: color, hp: 3};
+                map[2][1] = {type: 'shield', color: color, hp: 3};
+                map[3][0] = {type: 'archer', color: color, hp: 3};
+                map[3][1] = {type: 'knight', color: color, hp: 3};
+                break;
+            case 'd1':
+                map[0][0] = {type: 'archer', color: color, hp: 4};
+                map[0][1] = {type: 'wizard', color: color, hp: 4};
+                map[1][0] = {type: 'medic', color: color, hp: 3};
+                map[1][1] = {type: 'knight', color: color, hp: 3};
+                map[2][0] = {type: 'archer', color: color, hp: 3};
+                map[2][1] = {type: 'knight', color: color, hp: 3};
+                map[3][0] = {type: 'king', color: color, hp: 3};
+                map[3][1] = {type: 'shield', color: color, hp: 3};
+                break;
+        }
+        switch (opponents_king) {
+            case 'a4':
+                map[0][3] = {type: 'king', color: opponents_color, hp: 4};
+                map[0][2] = {type: 'shield', color: opponents_color, hp: 4};
+                map[1][3] = {type: 'archer', color: opponents_color, hp: 3};
+                map[1][2] = {type: 'knight', color: opponents_color, hp: 3};
+                map[2][3] = {type: 'medic', color: opponents_color, hp: 3};
+                map[2][2] = {type: 'knight', color: opponents_color, hp: 3};
+                map[3][3] = {type: 'archer', color: opponents_color, hp: 3};
+                map[3][2] = {type: 'wizard', color: opponents_color, hp: 3};
+                break;
+            case 'b4':
+                map[0][3] = {type: 'archer', color: opponents_color, hp: 4};
+                map[0][2] = {type: 'knight', color: opponents_color, hp: 4};
+                map[1][3] = {type: 'king', color: opponents_color, hp: 3};
+                map[1][2] = {type: 'shield', color: opponents_color, hp: 3};
+                map[2][3] = {type: 'medic', color: opponents_color, hp: 3};
+                map[2][2] = {type: 'wizard', color: opponents_color, hp: 3};
+                map[3][3] = {type: 'knight', color: opponents_color, hp: 3};
+                map[3][2] = {type: 'archer', color: opponents_color, hp: 3};
+                break;
+            case 'c4':
+                map[0][3] = {type: 'knight', color: opponents_color, hp: 4};
+                map[0][2] = {type: 'archer', color: opponents_color, hp: 4};
+                map[1][3] = {type: 'medic', color: opponents_color, hp: 3};
+                map[1][2] = {type: 'wizard', color: opponents_color, hp: 3};
+                map[2][3] = {type: 'king', color: opponents_color, hp: 3};
+                map[2][2] = {type: 'shield', color: opponents_color, hp: 3};
+                map[3][3] = {type: 'archer', color: opponents_color, hp: 3};
+                map[3][2] = {type: 'knight', color: opponents_color, hp: 3};
+                break;
+            case 'd4':
+                map[0][3] = {type: 'archer', color: opponents_color, hp: 4};
+                map[0][2] = {type: 'wizard', color: opponents_color, hp: 4};
+                map[1][3] = {type: 'medic', color: opponents_color, hp: 3};
+                map[1][2] = {type: 'knight', color: opponents_color, hp: 3};
+                map[2][3] = {type: 'archer', color: opponents_color, hp: 3};
+                map[2][2] = {type: 'knight', color: opponents_color, hp: 3};
+                map[3][3] = {type: 'king', color: opponents_color, hp: 3};
+                map[3][2] = {type: 'shield', color: opponents_color, hp: 3};
+                break;
+        }
+
+        display_map(map);
+    }
+
+    function next() {
+        let letter2index = {a: 0, b: 1, c: 2, d: 3};
+        let number2index = {1: 0, 2: 1, 3: 2, 4: 3};
+        history = document.getElementById("history").value;
+
+        //switch
+        let first = map[letter2index[history[pos+1]]][number2index[history[pos+2]]];
+        map[letter2index[history[pos+1]]][number2index[history[pos+2]]] = map[letter2index[history[pos+3]]][number2index[history[pos+4]]];
+        map[letter2index[history[pos+3]]][number2index[history[pos+4]]] = first;
+
+        //action
+        let next_pos = history.indexOf(' ', pos + 1);
+        if (next_pos !== pos + 5) {
+            switch (history[pos + 5]) {
+                case 'W':
+                    let first = map[letter2index[history[pos+7]]][number2index[history[pos+8]]];
+                    map[letter2index[history[pos+7]]][number2index[history[pos+8]]] = map[letter2index[history[pos+9]]][number2index[history[pos+10]]];
+                    map[letter2index[history[pos+9]]][number2index[history[pos+10]]] = first;
+                    break;
+                case 'K':
+                case 'A':
+                case 'N':
+                    for (let i = pos + 7; i < next_pos; i += 2) {
+                        map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] -= 1;
+                        if (map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] === 0) {
+                            map[letter2index[history[i]]][number2index[history[i+1]]]['type'] = 'empty';
+                        }
+                    }
+                    break;
+                case 'M':
+                    for (let i = pos + 7; i < next_pos; i += 2) {
+                        map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] += 1;
+                    }
+                    break;
+            }
+        }
+
+        pos = next_pos;
+        display_map(map);
+    }
+
+    function display_map(map) {
+        let graphic_display = document.getElementById("graphic_display");
+        graphic_display.width = graphic_display.width;
+        let canvas = graphic_display.getContext("2d");
+
+        let tile_width = CANVAS_SIZE / MAP_SIZE / 100 * scale;
+        let tile_height = CANVAS_SIZE / MAP_SIZE / 100 * scale;
+        let hp_size = HP_SIZE / 200 * scale;
+        let hp_distance = HP_DISTANCE / 150 * scale;
+
+        for (let column = 0; column < MAP_SIZE; column++) {
+            for (let row = 0; row < MAP_SIZE; row++) {
+                if (map[column][row]['type'] !== 'empty') {
+                    canvas.drawImage(map[column][row]['color'] === 'black' ? black_bg : white_bg,
+                        column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
+                    if (map[column][row]['type'] !== 'shield') {
+                        canvas.drawImage(head, column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
+                    }
+                    canvas.drawImage(assets[map[column][row]['color']][map[column][row]['type']],
+                        column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
+                    switch (map[column][row]['hp']) {
+                        case 1:
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            break;
+                        case 2:
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            break;
+                        case 3:
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            break;
+                        case 4:
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 3, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    function random_int(min, max) {
+        let rand = min + Math.random() * (max + 1 - min);
+        return Math.floor(rand);
+    }
+
+</script>
+
+<noscript>
+    <h2>Feud Calculator</h2>
+    <i>(by <a href="mailto:quasistellar.official@gmail.com" target="_top">QuasiStellar</a>)</i>
+    <p>Javascript is required to use this utility!</p>
+    <p>If you are worried about potential security issues, you can always review the code at the project's <a href="https://github.com/QuasiStellar/FeudCalculator">GitHub repository</a>.</p>
+</noscript>
+
+<div id="main">
+    <h2>Feud Calculator</h2>
+    <span style="display: inline-block"><i>(by <a href="mailto:quasistellar.official@gmail.com" target="_top">QuasiStellar</a>)</i></span>
+
+    <p id="warning" style="display: none">Warning.</p>
+
+    <p>Your color:</p>
+    <select id="color">
+        <option value="black">Black
+        <option value="white">White
+    </select>
+
+    <p>Your king position:</p>
+    <select id="your_king">
+        <option value="a1">a1
+        <option value="b1">b1
+        <option value="c1">c1
+        <option value="d1">d1
+    </select>
+
+    <p>Opponent's king position:</p>
+    <select id="opponents_king">
+        <option value="a4">a4
+        <option value="b4">b4
+        <option value="c4">c4
+        <option value="d4">d4
+    </select>
+
+    <p>Game history (from Feud Game Database):</p>
+    <input type="text" id="history" required>
+
+    <p>Scale:</p>
+    <select id="scale">
+        <option value="50">100%
+        <option value="25">50%
+        <option value="100">200%
+    </select>
+
+    <p><button type="button" onclick="generate()">Generate!</button></p>
+
+    <p><button type="button" onclick="next()">Next</button></p>
+
+    <canvas id="graphic_display" width="1056" height="1056"></canvas>
+
+    <p><button type="button" onclick="switch_page('faq')">FAQ</button></p>
+</div>
+
+<div id="faq" style="display: none">
+    <h2>Frequently Asked Questions</h2>
+
+    <p><button type="button" onclick="switch_page('main')">Generator</button>
+</div>
+</body>
+
+</html>
