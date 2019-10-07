@@ -35,6 +35,7 @@
     let scale = 100;
     let history;
     let pos;
+    let cur_color;
     let map = new Array(MAP_SIZE);
 
     let assets = {black: {}, white: {}};
@@ -90,6 +91,7 @@
         scale = parseInt(document.getElementById("scale").value);
 
         pos = history.indexOf(' ');
+        cur_color = 'black';
 
         for (let i = 0; i < MAP_SIZE; i++) {
             map[i] = new Array(MAP_SIZE);
@@ -186,43 +188,55 @@
     }
 
     function next() {
-        let letter2index = {a: 0, b: 1, c: 2, d: 3};
-        let number2index = {1: 0, 2: 1, 3: 2, 4: 3};
+        let l2i = {a: 0, b: 1, c: 2, d: 3};
+        let n2i = {1: 0, 2: 1, 3: 2, 4: 3};
         history = document.getElementById("history").value;
 
         //switch
-        let first = map[letter2index[history[pos+1]]][number2index[history[pos+2]]];
-        map[letter2index[history[pos+1]]][number2index[history[pos+2]]] = map[letter2index[history[pos+3]]][number2index[history[pos+4]]];
-        map[letter2index[history[pos+3]]][number2index[history[pos+4]]] = first;
+        let first = map[l2i[history[pos+1]]][n2i[history[pos+2]]];
+        map[l2i[history[pos+1]]][n2i[history[pos+2]]] = map[l2i[history[pos+3]]][n2i[history[pos+4]]];
+        map[l2i[history[pos+3]]][n2i[history[pos+4]]] = first;
 
         //action
         let next_pos = history.indexOf(' ', pos + 1);
         if (next_pos !== pos + 5) {
             switch (history[pos + 5]) {
                 case 'W':
-                    let first = map[letter2index[history[pos+7]]][number2index[history[pos+8]]];
-                    map[letter2index[history[pos+7]]][number2index[history[pos+8]]] = map[letter2index[history[pos+9]]][number2index[history[pos+10]]];
-                    map[letter2index[history[pos+9]]][number2index[history[pos+10]]] = first;
+                    let w_col = 0;
+                    let w_row = 0;
+                    for (let i = 0; i < 4; i++) {
+                        for (let j = 0; j < 4; j++) {
+                            if (map[i][j]['type'] === 'wizard' && map[i][j]['color'] === cur_color) {
+                                w_col = i;
+                                w_row = j;
+                                break;
+                            }
+                        }
+                    }
+                    let wizard = map[w_col][w_row];
+                    map[w_col][w_row] = map[l2i[history[pos+7]]][n2i[history[pos+8]]];
+                    map[l2i[history[pos+7]]][n2i[history[pos+8]]] = wizard;
                     break;
                 case 'K':
                 case 'A':
                 case 'N':
                     for (let i = pos + 7; i < next_pos; i += 2) {
-                        map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] -= 1;
-                        if (map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] === 0) {
-                            map[letter2index[history[i]]][number2index[history[i+1]]]['type'] = 'empty';
+                        map[l2i[history[i]]][n2i[history[i+1]]]['hp'] -= 1;
+                        if (map[l2i[history[i]]][n2i[history[i+1]]]['hp'] === 0) {
+                            map[l2i[history[i]]][n2i[history[i+1]]] = {type: 'empty', color: null, hp: null};
                         }
                     }
                     break;
                 case 'M':
                     for (let i = pos + 7; i < next_pos; i += 2) {
-                        map[letter2index[history[i]]][number2index[history[i+1]]]['hp'] += 1;
+                        map[l2i[history[i]]][n2i[history[i+1]]]['hp'] += 1;
                     }
                     break;
             }
         }
 
         pos = next_pos;
+        cur_color = (cur_color === 'black') ? 'white' : 'black';
         display_map(map);
     }
 
