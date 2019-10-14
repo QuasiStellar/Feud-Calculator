@@ -39,40 +39,23 @@
     let map = new Array(MAP_SIZE);
 
     let assets = {black: {}, white: {}};
-    let head = new Image();
-    head.src = "assets/head.png";
-    let black_bg = new Image();
-    black_bg.src = "assets/black_bg.png";
-    let white_bg = new Image();
-    white_bg.src = "assets/white_bg.png";
-    let black_hp = new Image();
-    black_hp.src = "assets/black_hp.png";
-    let white_hp = new Image();
-    white_hp.src = "assets/white_hp.png";
-    assets['black']['king'] = new Image();
-    assets['black']['king'].src = "assets/black_king.png";
-    assets['white']['king'] = new Image();
-    assets['white']['king'].src = "assets/white_king.png";
-    assets['black']['wizard'] = new Image();
-    assets['black']['wizard'].src = "assets/black_wizard.png";
-    assets['white']['wizard'] = new Image();
-    assets['white']['wizard'].src = "assets/white_wizard.png";
-    assets['black']['medic'] = new Image();
-    assets['black']['medic'].src = "assets/black_medic.png";
-    assets['white']['medic'] = new Image();
-    assets['white']['medic'].src = "assets/white_medic.png";
-    assets['black']['shield'] = new Image();
-    assets['black']['shield'].src = "assets/black_shield.png";
-    assets['white']['shield'] = new Image();
-    assets['white']['shield'].src = "assets/white_shield.png";
-    assets['black']['archer'] = new Image();
-    assets['black']['archer'].src = "assets/black_archer.png";
-    assets['white']['archer'] = new Image();
-    assets['white']['archer'].src = "assets/white_archer.png";
-    assets['black']['knight'] = new Image();
-    assets['black']['knight'].src = "assets/black_knight.png";
-    assets['white']['knight'] = new Image();
-    assets['white']['knight'].src = "assets/white_knight.png";
+    let head = get_image("assets/head.png");
+    let black_bg = get_image("assets/black_bg.png");
+    let white_bg = get_image("assets/white_bg.png");
+    let black_hp = get_image("assets/black_hp.png");
+    let white_hp = get_image("assets/white_hp.png");
+    assets['black']['king'] = get_image("assets/black_king.png");
+    assets['white']['king'] = get_image("assets/white_king.png");
+    assets['black']['wizard'] = get_image("assets/black_wizard.png");
+    assets['white']['wizard'] = get_image("assets/white_wizard.png");
+    assets['black']['medic'] = get_image("assets/black_medic.png");
+    assets['white']['medic'] = get_image("assets/white_medic.png");
+    assets['black']['shield'] = get_image("assets/black_shield.png");
+    assets['white']['shield'] = get_image("assets/white_shield.png");
+    assets['black']['archer'] = get_image("assets/black_archer.png");
+    assets['white']['archer'] = get_image("assets/white_archer.png");
+    assets['black']['knight'] = get_image("assets/black_knight.png");
+    assets['white']['knight'] = get_image("assets/white_knight.png");
 
 
     function switch_page(new_page) {
@@ -80,6 +63,12 @@
         document.getElementById("faq").style.display='none';
         PAGE = new_page;
         document.getElementById(new_page).style.display='block';
+    }
+
+    function get_image(src) {
+        let image = new Image();
+        image.src = src;
+        return image;
     }
 
     function generate() {
