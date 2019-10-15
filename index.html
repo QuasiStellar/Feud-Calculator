@@ -19,7 +19,13 @@
     <title>Feud Calculator</title>
 
     <style>
-
+        @font-face {
+            font-family: 'Andada';
+            src: local('Andada'), local('Andada-Regular'), url('assets/font/andada.woff2') format('woff2'), url('assets/font/andada.woff') format('woff'), url('assets/font/andada.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        p {font-family: andada, sans-serif; }
     </style>
 
 </head>
@@ -199,8 +205,7 @@
                     if (piece['type'] !== 'shield') {
                         canvas.drawImage(head, column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
                     }
-                    canvas.drawImage(assets[piece['color']][piece['type']],
-                        column * tile_width, (MAP_SIZE - row - 1) * tile_height, tile_width, tile_height);
+                    canvas.drawImage(assets[piece['color']][piece['type']], column * tile_width, (MAP_SIZE - row - 1) * tile_height, tile_width, tile_height);
                     let dot_asset = piece['color'] === 'black' ? black_hp : white_hp;
                     let dot_height = (3 - row) * tile_height + tile_height / 9;
                     let dot_count = map[column][row]['hp'];
@@ -226,13 +231,13 @@
     <p>If you are worried about potential security issues, you can always review the code at the project's <a href="https://github.com/QuasiStellar/Feud-Calculator">GitHub repository</a>.</p>
 </noscript>
 
-<div id="main">
+<div class="general" id="main">
     <h2>Feud Calculator</h2>
     <span style="display: inline-block"><i>(by <a href="mailto:quasistellar.official@gmail.com" target="_top">QuasiStellar</a>)</i></span>
 
     <p id="warning" style="display: none">Warning.</p>
 
-    <p>Your color:</p>
+    <p style="font-family: 'Andada', serif">Your color:</p>
     <select id="color">
         <option value="black">Black
         <option value="white">White
