@@ -86,89 +86,42 @@
                 map[i][j] = {type: 'empty'}
         }
 
-        switch (your_king) {
-            case 'a1':
-                map[0][0] = {type: 'king', color: color, hp: 4};
-                map[0][1] = {type: 'shield', color: color, hp: 4};
-                map[1][0] = {type: 'archer', color: color, hp: 3};
-                map[1][1] = {type: 'knight', color: color, hp: 3};
-                map[2][0] = {type: 'medic', color: color, hp: 3};
-                map[2][1] = {type: 'knight', color: color, hp: 3};
-                map[3][0] = {type: 'archer', color: color, hp: 3};
-                map[3][1] = {type: 'wizard', color: color, hp: 3};
-                break;
-            case 'b1':
-                map[0][0] = {type: 'archer', color: color, hp: 3};
-                map[0][1] = {type: 'knight', color: color, hp: 3};
-                map[1][0] = {type: 'king', color: color, hp: 4};
-                map[1][1] = {type: 'shield', color: color, hp: 4};
-                map[2][0] = {type: 'medic', color: color, hp: 3};
-                map[2][1] = {type: 'wizard', color: color, hp: 3};
-                map[3][0] = {type: 'knight', color: color, hp: 3};
-                map[3][1] = {type: 'archer', color: color, hp: 3};
-                break;
-            case 'c1':
-                map[0][0] = {type: 'knight', color: color, hp: 3};
-                map[0][1] = {type: 'archer', color: color, hp: 3};
-                map[1][0] = {type: 'medic', color: color, hp: 3};
-                map[1][1] = {type: 'wizard', color: color, hp: 3};
-                map[2][0] = {type: 'king', color: color, hp: 4};
-                map[2][1] = {type: 'shield', color: color, hp: 4};
-                map[3][0] = {type: 'archer', color: color, hp: 3};
-                map[3][1] = {type: 'knight', color: color, hp: 3};
-                break;
-            case 'd1':
-                map[0][0] = {type: 'archer', color: color, hp: 3};
-                map[0][1] = {type: 'wizard', color: color, hp: 3};
-                map[1][0] = {type: 'medic', color: color, hp: 3};
-                map[1][1] = {type: 'knight', color: color, hp: 3};
-                map[2][0] = {type: 'archer', color: color, hp: 3};
-                map[2][1] = {type: 'knight', color: color, hp: 3};
-                map[3][0] = {type: 'king', color: color, hp: 4};
-                map[3][1] = {type: 'shield', color: color, hp: 4};
-                break;
-        }
-        switch (opponents_king) {
-            case 'a4':
-                map[0][3] = {type: 'king', color: opponents_color, hp: 4};
-                map[0][2] = {type: 'shield', color: opponents_color, hp: 4};
-                map[1][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[1][2] = {type: 'knight', color: opponents_color, hp: 3};
-                map[2][3] = {type: 'medic', color: opponents_color, hp: 3};
-                map[2][2] = {type: 'knight', color: opponents_color, hp: 3};
-                map[3][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[3][2] = {type: 'wizard', color: opponents_color, hp: 3};
-                break;
-            case 'b4':
-                map[0][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[0][2] = {type: 'knight', color: opponents_color, hp: 3};
-                map[1][3] = {type: 'king', color: opponents_color, hp: 4};
-                map[1][2] = {type: 'shield', color: opponents_color, hp: 4};
-                map[2][3] = {type: 'medic', color: opponents_color, hp: 3};
-                map[2][2] = {type: 'wizard', color: opponents_color, hp: 3};
-                map[3][3] = {type: 'knight', color: opponents_color, hp: 3};
-                map[3][2] = {type: 'archer', color: opponents_color, hp: 3};
-                break;
-            case 'c4':
-                map[0][3] = {type: 'knight', color: opponents_color, hp: 3};
-                map[0][2] = {type: 'archer', color: opponents_color, hp: 3};
-                map[1][3] = {type: 'medic', color: opponents_color, hp: 3};
-                map[1][2] = {type: 'wizard', color: opponents_color, hp: 3};
-                map[2][3] = {type: 'king', color: opponents_color, hp: 4};
-                map[2][2] = {type: 'shield', color: opponents_color, hp: 4};
-                map[3][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[3][2] = {type: 'knight', color: opponents_color, hp: 3};
-                break;
-            case 'd4':
-                map[0][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[0][2] = {type: 'wizard', color: opponents_color, hp: 3};
-                map[1][3] = {type: 'medic', color: opponents_color, hp: 3};
-                map[1][2] = {type: 'knight', color: opponents_color, hp: 3};
-                map[2][3] = {type: 'archer', color: opponents_color, hp: 3};
-                map[2][2] = {type: 'knight', color: opponents_color, hp: 3};
-                map[3][3] = {type: 'king', color: opponents_color, hp: 4};
-                map[3][2] = {type: 'shield', color: opponents_color, hp: 4};
-                break;
+        let pieces_hp = {'king': 4, 'wizard': 3, 'medic': 3, 'shield': 4, 'archer': 3, 'knight': 4};
+        let pieces_order_border = ['king', 'archer', 'medic', 'archer', 'shield', 'knight', 'knight', 'wizard'];
+        let pieces_order_center = ['archer', 'king', 'medic', 'knight', 'knight', 'shield', 'wizard', 'archer'];
+        for (let row = 0; row < MAP_SIZE; row++) {
+            for (let column = 0; column < MAP_SIZE; column++) {
+                let your_side = row < 2;
+                let piece_color = your_side ? color : opponents_color;
+                let piece_type;
+                switch (your_side ? your_king : opponents_king) {
+                    case 'a1':
+                        piece_type = pieces_order_border[column + row * MAP_SIZE];
+                        break;
+                    case 'b1':
+                        piece_type = pieces_order_center[column + row * MAP_SIZE];
+                        break;
+                    case 'c1':
+                        piece_type = pieces_order_center[(MAP_SIZE - column - 1) + row * MAP_SIZE];
+                        break;
+                    case 'd1':
+                        piece_type = pieces_order_border[(MAP_SIZE - column - 1) + row * MAP_SIZE];
+                        break;
+                    case 'a4':
+                        piece_type = pieces_order_border[column + (MAP_SIZE - row - 1) * MAP_SIZE];
+                        break;
+                    case 'b4':
+                        piece_type = pieces_order_center[column + (MAP_SIZE - row - 1) * MAP_SIZE];
+                        break;
+                    case 'c4':
+                        piece_type = pieces_order_center[(MAP_SIZE - column - 1) + (MAP_SIZE - row - 1) * MAP_SIZE];
+                        break;
+                    case 'd4':
+                        piece_type = pieces_order_border[(MAP_SIZE - column - 1) + (MAP_SIZE - row - 1) * MAP_SIZE];
+                        break;
+                }
+                map[column][row] = {type: piece_type, color: piece_color, hp: pieces_hp[piece_type]};
+            }
         }
 
         display_map(map);
@@ -237,8 +190,8 @@
         let hp_size = HP_SIZE / 200 * scale;
         let hp_distance = HP_DISTANCE / 150 * scale;
 
-        for (let column = 0; column < MAP_SIZE; column++) {
-            for (let row = 0; row < MAP_SIZE; row++) {
+        for (let row = 0; row < MAP_SIZE; row++) {
+            for (let column = 0; column < MAP_SIZE; column++) {
                 let piece = map[column][row];
                 if (piece['type'] !== 'empty') {
                     canvas.drawImage(piece['color'] === 'black' ? black_bg : white_bg,
