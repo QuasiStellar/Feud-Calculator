@@ -195,41 +195,17 @@
                 let piece = map[column][row];
                 if (piece['type'] !== 'empty') {
                     canvas.drawImage(piece['color'] === 'black' ? black_bg : white_bg,
-                        column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
+                        column * tile_width, (MAP_SIZE - row - 1) * tile_height, tile_width, tile_height);
                     if (piece['type'] !== 'shield') {
                         canvas.drawImage(head, column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
                     }
                     canvas.drawImage(assets[piece['color']][piece['type']],
-                        column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
-                    switch (map[column][row]['hp']) {
-                        case 1:
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            break;
-                        case 2:
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            break;
-                        case 3:
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            break;
-                        case 4:
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
-                                column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 3, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            break;
+                        column * tile_width, (MAP_SIZE - row - 1) * tile_height, tile_width, tile_height);
+                    let dot_asset = piece['color'] === 'black' ? black_hp : white_hp;
+                    let dot_height = (3 - row) * tile_height + tile_height / 9;
+                    let dot_count = map[column][row]['hp'];
+                    for (let i = 0; i < dot_count; i++) {
+                        canvas.drawImage(dot_asset, column * tile_width + (tile_width - hp_size - hp_distance * (dot_count - 1)) / 2 + hp_distance * i, dot_height, hp_size, hp_size);
                     }
                 }
             }
