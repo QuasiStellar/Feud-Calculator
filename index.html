@@ -28,20 +28,66 @@
         * {
             font-family: andada, sans-serif;
         }
-        body { background: url('assets/wood.png'); }
+        body {
+            background: url('assets/wood.png');
+            background-size: 100%;
+            margin: 0;
+        }
+        .header {
+            background: url('assets/upper_border.png') repeat-x;
+            height: 213px;
+        }
+        .logo {
+            width: 400px;
+        }
+        .logo_box {
+            margin: 0 auto;
+            width: 400px;
+        }
+        .input {
+            margin: 0 auto;
+            width: 275px;
+        }
+        input[type=text], select {
+            background-color: #eeeeee;
+            padding: 5px 5px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #your_king, #opponents_king {
+            width: 50px;
+        }
+        #color, #history {
+            width: 80px;
+        }
+        .canvas_holder {
+            margin: 0 auto;
+            width: 528px;
+        }
+        .buttons {
+            margin: 0 auto;
+            width: 132px;
+        }
+        .button {
+            width: 64px;
+            cursor: pointer;
+        }
     </style>
 
 </head>
 
 <body>
 <script>
+
     let PAGE = 'main';
     let CANVAS_SIZE = 1056;
     let HP_SIZE = 24;
     let HP_DISTANCE = 40;
     let MAP_SIZE = 4;
 
-    let scale = 100;
     let history;
     let pos;
     let cur_color;
@@ -84,7 +130,6 @@
         let your_king = document.getElementById("your_king").value;
         let opponents_king = document.getElementById("opponents_king").value;
         let history = document.getElementById("history").value;
-        scale = parseInt(document.getElementById("scale").value);
 
         pos = history.indexOf(' ');
         cur_color = 'black';
@@ -194,10 +239,10 @@
         graphic_display.width = graphic_display.width;
         let canvas = graphic_display.getContext("2d");
 
-        let tile_width = CANVAS_SIZE / MAP_SIZE / 100 * scale;
-        let tile_height = CANVAS_SIZE / MAP_SIZE / 100 * scale;
-        let hp_size = HP_SIZE / 200 * scale;
-        let hp_distance = HP_DISTANCE / 150 * scale;
+        let tile_width = CANVAS_SIZE / MAP_SIZE / 2;
+        let tile_height = CANVAS_SIZE / MAP_SIZE / 2;
+        let hp_size = HP_SIZE / 4;
+        let hp_distance = HP_DISTANCE / 3;
 
         for (let row = 0; row < MAP_SIZE; row++) {
             for (let column = 0; column < MAP_SIZE; column++) {
@@ -220,11 +265,6 @@
         }
     }
 
-    function random_int(min, max) {
-        let rand = min + Math.random() * (max + 1 - min);
-        return Math.floor(rand);
-    }
-
 </script>
 
 <noscript>
@@ -234,49 +274,41 @@
     <p>If you are worried about potential security issues, you can always review the code at the project's <a href="https://github.com/QuasiStellar/Feud-Calculator">GitHub repository</a>.</p>
 </noscript>
 
-<div class="general" id="main">
-    <h2>Feud Calculator</h2>
-    <span style="display: inline-block"><i>(by <a href="mailto:quasistellar.official@gmail.com" target="_top">QuasiStellar</a>)</i></span>
+<div id="main">
+    <div class="header">
+        <div class="logo_box">
+            <img class="logo" src="assets/big_logo.png" alt="Feud Calculator">
+        </div>
+    </div>
 
-    <p id="warning" style="display: none">Warning.</p>
+    <div class="input">
+        <label for="color"></label><select id="color">
+            <option value="black">Black
+            <option value="white">White
+        </select>
+        <label for="your_king"></label><select id="your_king">
+            <option value="a1">a1
+            <option value="b1">b1
+            <option value="c1">c1
+            <option value="d1">d1
+        </select>
+        <label for="opponents_king"></label><select id="opponents_king">
+            <option value="a4">a4
+            <option value="b4">b4
+            <option value="c4">c4
+            <option value="d4">d4
+        </select>
+        <label for="history"></label><input type="text" placeholder="Notation" id="history" required>
+    </div>
 
-    <p>Your color:</p>
-    <select id="color">
-        <option value="black">Black
-        <option value="white">White
-    </select>
+    <div class="buttons">
+        <img class="button" src="assets/generate.png" alt="Generate!" onclick="generate()">
+        <img class="button" src="assets/next.png" alt="Next" onclick="next()">
+    </div>
 
-    <p>Your king position:</p>
-    <select id="your_king">
-        <option value="a1">a1
-        <option value="b1">b1
-        <option value="c1">c1
-        <option value="d1">d1
-    </select>
-
-    <p>Opponent's king position:</p>
-    <select id="opponents_king">
-        <option value="a4">a4
-        <option value="b4">b4
-        <option value="c4">c4
-        <option value="d4">d4
-    </select>
-
-    <p>Game history (from Feud Game Database):</p>
-    <input type="text" id="history" required>
-
-    <p>Scale:</p>
-    <select id="scale">
-        <option value="50">100%
-        <option value="25">50%
-        <option value="100">200%
-    </select>
-
-    <p><button type="button" onclick="generate()">Generate!</button></p>
-
-    <p><button type="button" onclick="next()">Next</button></p>
-
-    <canvas id="graphic_display" width="1056" height="1056"></canvas>
+    <div class="canvas_holder">
+        <canvas id="graphic_display" width="528" height="528"></canvas>
+    </div>
 
     <p><button type="button" onclick="switch_page('faq')">FAQ</button></p>
 </div>
