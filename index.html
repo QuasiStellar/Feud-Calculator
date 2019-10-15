@@ -38,24 +38,22 @@
     let cur_color;
     let map = new Array(MAP_SIZE);
 
-    let assets = {black: {}, white: {}};
     let head = get_image("assets/head.png");
     let black_bg = get_image("assets/black_bg.png");
     let white_bg = get_image("assets/white_bg.png");
     let black_hp = get_image("assets/black_hp.png");
     let white_hp = get_image("assets/white_hp.png");
-    assets['black']['king'] = get_image("assets/black_king.png");
-    assets['white']['king'] = get_image("assets/white_king.png");
-    assets['black']['wizard'] = get_image("assets/black_wizard.png");
-    assets['white']['wizard'] = get_image("assets/white_wizard.png");
-    assets['black']['medic'] = get_image("assets/black_medic.png");
-    assets['white']['medic'] = get_image("assets/white_medic.png");
-    assets['black']['shield'] = get_image("assets/black_shield.png");
-    assets['white']['shield'] = get_image("assets/white_shield.png");
-    assets['black']['archer'] = get_image("assets/black_archer.png");
-    assets['white']['archer'] = get_image("assets/white_archer.png");
-    assets['black']['knight'] = get_image("assets/black_knight.png");
-    assets['white']['knight'] = get_image("assets/white_knight.png");
+
+    let colors = ['black', 'white'];
+    let types = ['king', 'wizard', 'medic', 'shield', 'archer', 'knight'];
+
+    let assets = {black: {}, white: {}};
+
+    for (let color of colors) {
+        for (let type of types) {
+            assets[color][type] = get_image("assets/" + color + "_" + type + ".png")
+        }
+    }
 
 
     function switch_page(new_page) {
@@ -241,41 +239,42 @@
 
         for (let column = 0; column < MAP_SIZE; column++) {
             for (let row = 0; row < MAP_SIZE; row++) {
-                if (map[column][row]['type'] !== 'empty') {
-                    canvas.drawImage(map[column][row]['color'] === 'black' ? black_bg : white_bg,
+                let piece = map[column][row];
+                if (piece['type'] !== 'empty') {
+                    canvas.drawImage(piece['color'] === 'black' ? black_bg : white_bg,
                         column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
-                    if (map[column][row]['type'] !== 'shield') {
+                    if (piece['type'] !== 'shield') {
                         canvas.drawImage(head, column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
                     }
-                    canvas.drawImage(assets[map[column][row]['color']][map[column][row]['type']],
+                    canvas.drawImage(assets[piece['color']][piece['type']],
                         column * tile_width, (3 - row) * tile_height, tile_width, tile_height);
                     switch (map[column][row]['hp']) {
                         case 1:
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
                             break;
                         case 2:
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
                             break;
                         case 3:
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 2 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
                             break;
                         case 4:
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 2, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
-                            canvas.drawImage(map[column][row]['color'] === 'black' ? black_hp : white_hp,
+                            canvas.drawImage(piece['color'] === 'black' ? black_hp : white_hp,
                                 column * tile_width + (tile_width - hp_size - 3 * hp_distance) / 2 + hp_distance * 3, (3 - row) * tile_height + tile_height / 9, hp_size, hp_size);
                             break;
                     }
