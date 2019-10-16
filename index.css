@@ -1,0 +1,168 @@
+@font-face {
+    font-family: 'Andada';
+    src: local('Andada'), local('Andada-Regular'), url('assets/font/andada.woff2') format('woff2'), url('assets/font/andada.woff') format('woff'), url('assets/font/andada.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+* {
+    font-family: andada, sans-serif;
+}
+body {
+    background: url('assets/wood.png');
+    background-size: 100%;
+    margin: 0;
+}
+.header {
+    background: url('assets/upper_border.png') repeat-x;
+    height: 213px;
+}
+.logo {
+    width: 400px;
+}
+.logo_box {
+    margin: 0 auto;
+    width: 400px;
+}
+.input {
+    margin: 0 auto;
+    width: 272px;
+}
+input[type=text], select {
+    background-color: #eeeeee;
+    padding: 5px 5px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#your_king, #opponents_king {
+    width: 50px;
+}
+#color, #history {
+    width: 80px;
+}
+.canvas_holder {
+    margin: 0 auto;
+    width: 528px;
+}
+.buttons {
+    margin: 0 auto;
+    width: 132px;
+}
+.bottom_buttons {
+    margin: 0 auto;
+    width: 268px;
+}
+.faq_back {
+    margin: 0 auto;
+    width: 64px;
+}
+.faq_list {
+    margin: 0 auto;
+    background: url('assets/parchment.png') no-repeat;
+    background-size: 500px 500px;
+    width: 400px;
+    height: 400px;
+    padding: 50px;
+}
+#faq_generate {
+    background: url('assets/generate.png') no-repeat left top;
+    background-size: 64px 64px;
+    height: 70px;
+}
+#faq_next {
+    background: url('assets/next.png') no-repeat left top;
+    background-size: 64px 64px;
+    height: 70px;
+}
+#faq_github {
+    background: url('assets/github.png') no-repeat left top;
+    background-size: 64px 64px;
+    height: 70px;
+}
+#faq_discord {
+    background: url('assets/discord.png') no-repeat left top;
+    background-size: 64px 64px;
+    height: 70px;
+}
+.indent_text {
+    padding-left: 70px;
+}
+.button {
+    width: 64px;
+    cursor: pointer;
+}
+@media screen and (max-device-width: 500px) {
+    .header {
+        background: url('assets/upper_border.png') repeat-x;
+        background-size: auto 106px;
+        height: 106px;
+    }
+    .logo {
+        width: 200px;
+    }
+    .logo_box {
+        margin: 0 auto;
+        width: 200px;
+    }
+    #graphic_display {
+        width: 264px;
+        height: 264px;
+    }
+    .canvas_holder {
+        margin: 0 auto;
+        width: 264px;
+    }
+    .buttons {
+        margin: 0 auto;
+        width: 68px;
+    }
+    .bottom_buttons {
+        margin: 0 auto;
+        width: 140px;
+    }
+    .faq_back {
+        margin: 0 auto;
+        width: 32px;
+    }
+    .faq_list {
+        margin: 0 auto;
+        background: url('assets/parchment.png') no-repeat;
+        background-size: 250px 250px;
+        width: 200px;
+        height: 200px;
+        padding: 25px;
+    }
+    #faq_generate {
+        background: url('assets/generate.png') no-repeat left top;
+        background-size: 32px 32px;
+        height: 40px;
+    }
+    #faq_next {
+        background: url('assets/next.png') no-repeat left top;
+        background-size: 32px 32px;
+        height: 40px;
+    }
+    #faq_github {
+        background: url('assets/github.png') no-repeat left top;
+        background-size: 32px 32px;
+        height: 40px;
+    }
+    #faq_discord {
+        background: url('assets/discord.png') no-repeat left top;
+        background-size: 32px 32px;
+        height: 40px;
+    }
+    h1 {
+        font-size: 100%;
+    }
+    .indent_text {
+        padding-left: 40px;
+        font-size: 60%;
+    }
+    .button {
+        width: 32px;
+        cursor: pointer;
+    }
+}
