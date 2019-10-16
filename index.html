@@ -75,6 +75,21 @@
             margin: 0 auto;
             width: 200px;
         }
+        .faq_back {
+            margin: 0 auto;
+            width: 64px;
+        }
+        .faq_list {
+            margin: 0 auto;
+            background: url('assets/parchment.png') no-repeat;
+            background-size: 500px 500px;
+            width: 400px;
+            height: 400px;
+            padding: 50px;
+        }
+        #info_title {
+            margin: 0 auto;
+        }
         .button {
             width: 64px;
             cursor: pointer;
@@ -107,6 +122,10 @@
             .bottom_buttons {
                 margin: 0 auto;
                 width: 104px;
+            }
+            .faq_back {
+                margin: 0 auto;
+                width: 32px;
             }
             .button {
                 width: 32px;
@@ -313,13 +332,13 @@
         <p>If you are worried about potential security issues, you can always review the code at the project's <a href="https://github.com/QuasiStellar/Feud-Calculator">GitHub repository</a>.</p>
     </noscript>
 
-    <div id="main">
-
-        <div class="header">
-            <div class="logo_box">
-                <img class="logo" src="assets/big_logo.png" alt="Feud Calculator">
-            </div>
+    <div class="header">
+        <div class="logo_box">
+            <img class="logo" src="assets/big_logo.png" alt="Feud Calculator">
         </div>
+    </div>
+
+    <div id="main">
 
         <div class="input">
             <label for="color"></label><select id="color">
@@ -356,8 +375,15 @@
             <img class="button" src="assets/discord.png" alt="Discord" onclick="document.location.href='https://discord.gg/Bf5uffE'">
         </div>
 
-        <p><button type="button" onclick="switch_page('faq')">FAQ</button></p>
+    </div>
 
+    <div id="faq" style="display: none">
+        <div class="faq_list">
+            <h1 id="info_title">Reference</h1>
+        </div>
+        <div class="faq_back">
+            <img class="button" src="assets/back.png" alt="Back" onclick="switch_page('main')">
+        </div>
     </div>
 
 </body>
