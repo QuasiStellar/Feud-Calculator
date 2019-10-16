@@ -87,6 +87,29 @@
             height: 400px;
             padding: 50px;
         }
+        #faq_generate {
+            background: url('assets/generate.png') no-repeat left top;
+            background-size: 64px 64px;
+            height: 70px;
+        }
+        #faq_next {
+            background: url('assets/next.png') no-repeat left top;
+            background-size: 64px 64px;
+            height: 70px;
+        }
+        #faq_github {
+            background: url('assets/github.png') no-repeat left top;
+            background-size: 64px 64px;
+            height: 70px;
+        }
+        #faq_discord {
+            background: url('assets/discord.png') no-repeat left top;
+            background-size: 64px 64px;
+            height: 70px;
+        }
+        .indent_text {
+            padding-left: 70px;
+        }
         .button {
             width: 64px;
             cursor: pointer;
@@ -131,6 +154,33 @@
                 width: 200px;
                 height: 200px;
                 padding: 25px;
+            }
+            #faq_generate {
+                background: url('assets/generate.png') no-repeat left top;
+                background-size: 32px 32px;
+                height: 40px;
+            }
+            #faq_next {
+                background: url('assets/next.png') no-repeat left top;
+                background-size: 32px 32px;
+                height: 40px;
+            }
+            #faq_github {
+                background: url('assets/github.png') no-repeat left top;
+                background-size: 32px 32px;
+                height: 40px;
+            }
+            #faq_discord {
+                background: url('assets/discord.png') no-repeat left top;
+                background-size: 32px 32px;
+                height: 40px;
+            }
+            h1 {
+                font-size: 100%;
+            }
+            .indent_text {
+                padding-left: 40px;
+                font-size: 60%;
             }
             .button {
                 width: 32px;
@@ -385,6 +435,26 @@
     <div id="faq" style="display: none">
         <div class="faq_list">
             <h1 id="info_title">Reference</h1>
+            <div id="faq_generate">
+                <div class="indent_text">
+                    Generate new initial placement depending on your color and kings positions.
+                </div>
+            </div>
+            <div id="faq_next">
+                <div class="indent_text">
+                    Make the next move according to notation.
+                </div>
+            </div>
+            <div id="faq_github">
+                <div class="indent_text">
+                    Check out code of this service at <a href="https://github.com/QuasiStellar/Feud-Calculator">GitHub</a>.
+                </div>
+            </div>
+            <div id="faq_discord">
+                <div class="indent_text">
+                    Welcome to <a href="https://discord.gg/Bf5uffE">Feud League</a> Discord!
+                </div>
+            </div>
         </div>
         <div class="faq_back">
             <img class="button" src="assets/back.png" alt="Back" onclick="switch_page('main')">
