@@ -75,6 +75,36 @@
             width: 64px;
             cursor: pointer;
         }
+        @media screen and (max-device-width: 500px) {
+            .header {
+                background: url('assets/upper_border.png') repeat-x;
+                background-size: auto 106px;
+                height: 106px;
+            }
+            .logo {
+                width: 200px;
+            }
+            .logo_box {
+                margin: 0 auto;
+                width: 200px;
+            }
+            #graphic_display {
+                width: 264px;
+                height: 264px;
+            }
+            .canvas_holder {
+                margin: 0 auto;
+                width: 264px;
+            }
+            .buttons {
+                margin: 0 auto;
+                width: 68px;
+            }
+            .button {
+                width: 32px;
+                cursor: pointer;
+            }
+        }
     </style>
 
 </head>
@@ -82,8 +112,10 @@
 <body>
 <script>
 
+    let width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+
     let PAGE = 'main';
-    let CANVAS_SIZE = 1056;
+    let CANVAS_SIZE = (width > 500) ? 528 : 264;
     let HP_SIZE = 24;
     let HP_DISTANCE = 40;
     let MAP_SIZE = 4;
@@ -239,8 +271,8 @@
         graphic_display.width = graphic_display.width;
         let canvas = graphic_display.getContext("2d");
 
-        let tile_width = CANVAS_SIZE / MAP_SIZE / 2;
-        let tile_height = CANVAS_SIZE / MAP_SIZE / 2;
+        let tile_width = CANVAS_SIZE / MAP_SIZE;
+        let tile_height = CANVAS_SIZE / MAP_SIZE;
         let hp_size = HP_SIZE / 4;
         let hp_distance = HP_DISTANCE / 3;
 
