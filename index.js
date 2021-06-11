@@ -56,7 +56,7 @@ function generate() {
             map[i][j] = {type: 'empty'}
     }
 
-    let pieces_hp = {'king': 4, 'wizard': 3, 'medic': 3, 'shield': 4, 'archer': 3, 'knight': 4};
+    let pieces_hp = {'king': 4, 'wizard': 3, 'medic': 3, 'shield': 4, 'archer': 3, 'knight': 3};
     let pieces_order_border = ['king', 'archer', 'medic', 'archer', 'shield', 'knight', 'knight', 'wizard'];
     let pieces_order_center = ['archer', 'king', 'medic', 'knight', 'knight', 'shield', 'wizard', 'archer'];
     for (let row = 0; row < MAP_SIZE; row++) {
