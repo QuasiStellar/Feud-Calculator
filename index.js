@@ -109,6 +109,8 @@ function next() {
 
     //action
     let next_pos = history.indexOf(' ', pos + 1);
+    // handle lack of trailing space for only/last move
+    next_pos = next_pos >= 0 ? next_pos : history.length - 1;
     if (next_pos !== pos + 5) {
         switch (history[pos + 5]) {
             case 'W':
